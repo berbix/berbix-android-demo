@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.berbix.berbixverify.BerbixConfigurationBuilder
 import com.berbix.berbixverify.BerbixConstants
+import com.berbix.berbixverify.BerbixErrorReason
+import com.berbix.berbixverify.BerbixResultListener
 import com.berbix.berbixverify.BerbixResultStatus
 import com.berbix.berbixverify.BerbixSDK
 
@@ -31,19 +33,19 @@ class MainActivity : AppCompatActivity() {
     super.onActivityResult(requestCode, resultCode, data)
 
     if (requestCode == BerbixConstants.REQUEST_CODE_BERBIX_FLOW) {
-      BerbixResultStatus.handleResult(resultCode, object : BerbixResultStatus.BerbixResultListener {
+      BerbixResultStatus.handleResult(resultCode, object : BerbixResultListener{
 
         override fun onComplete() {
           Toast.makeText(this@MainActivity, "flow completed", Toast.LENGTH_LONG).show()
         }
 
-        override fun onFailure(status: BerbixResultStatus) {
+        override fun onFailure(status: BerbixErrorReason) {
           when (status) {
-            BerbixResultStatus.USER_EXIT -> Toast.makeText(this@MainActivity, "user exited flow", Toast.LENGTH_LONG).show()
-            BerbixResultStatus.NO_CAMERA_PERMISSIONS -> Toast.makeText(this@MainActivity, "no camera permission", Toast.LENGTH_LONG).show()
-            BerbixResultStatus.UNABLE_TO_LAUNCH_CAMERA -> Toast.makeText(this@MainActivity, "could not launch camera", Toast.LENGTH_LONG).show()
-            BerbixResultStatus.ERROR -> Toast.makeText(this@MainActivity, "Berbix error occurred", Toast.LENGTH_LONG).show()
-            BerbixResultStatus.UNKNOWN_ERROR -> Toast.makeText(this@MainActivity, "unknown error received", Toast.LENGTH_LONG).show()
+            BerbixErrorReason.USER_EXIT -> Toast.makeText(this@MainActivity, "user exited flow", Toast.LENGTH_LONG).show()
+            BerbixErrorReason.NO_CAMERA_PERMISSIONS -> Toast.makeText(this@MainActivity, "no camera permission", Toast.LENGTH_LONG).show()
+            BerbixErrorReason.UNABLE_TO_LAUNCH_CAMERA -> Toast.makeText(this@MainActivity, "could not launch camera", Toast.LENGTH_LONG).show()
+            BerbixErrorReason.BERBIX_ERROR -> Toast.makeText(this@MainActivity, "Berbix error occurred", Toast.LENGTH_LONG).show()
+            BerbixErrorReason.UNKNOWN_ERROR -> Toast.makeText(this@MainActivity, "unknown error received", Toast.LENGTH_LONG).show()
             else -> Toast.makeText(this@MainActivity, "unknown error received", Toast.LENGTH_LONG).show()
           }
         }
