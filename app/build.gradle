@@ -41,7 +41,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // Berbix SDK Dependency
-    implementation 'com.berbix:berbixverify:2.0.0-rc03'
+    implementation 'com.berbix:berbixverify:2.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
